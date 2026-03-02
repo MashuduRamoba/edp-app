@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDP App — Setup Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Lato', sans-serif; background: #f0ede6; color: #111827; line-height: 1.6; }
+
+  .header { background: #1e3a5f; color: #fff; padding: 32px 40px; }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 6px; }
+  .header p { color: #93c5fd; font-size: 15px; }
+  .gold { color: #c9a84c; }
+
+  .container { max-width: 820px; margin: 40px auto; padding: 0 24px 60px; }
+
+  .step { background: #fff; border-radius: 12px; padding: 28px 32px; margin-bottom: 20px;
+          border: 1px solid #e5e7eb; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+  .step-header { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .step-num { width: 42px; height: 42px; border-radius: 50%; background: #1e3a5f; color: #fff;
+              display: flex; align-items: center; justify-content: center;
+              font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .step-num.done { background: #15803d; }
+  .step h2 { font-family: 'Playfair Display', serif; font-size: 19px; color: #1e3a5f; }
+  .step p { color: #4b5563; font-size: 14px; margin-bottom: 12px; }
+
+  .code { background: #1e293b; color: #e2e8f0; padding: 14px 18px; border-radius: 8px;
+          font-family: 'Courier New', monospace; font-size: 14px; margin: 10px 0;
+          border-left: 4px solid #c9a84c; white-space: pre; overflow-x: auto; }
+
+  .tip { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px;
+         padding: 12px 16px; font-size: 13px; color: #1d4ed8; margin-top: 12px; }
+  .warn { background: #fef9ec; border: 1px solid #fde68a; border-radius: 8px;
+          padding: 12px 16px; font-size: 13px; color: #92400e; margin-top: 12px; }
+
+  .badge { display: inline-block; background: #dcfce7; color: #15803d; padding: 2px 10px;
+           border-radius: 20px; font-size: 12px; font-weight: 700; margin-left: 8px; }
+  .badge-blue { background: #dbeafe; color: #1d4ed8; }
+
+  img-placeholder { display: block; background: #f3f4f6; border: 2px dashed #d1d5db;
+                    border-radius: 8px; padding: 24px; text-align: center; color: #9ca3af;
+                    font-size: 13px; margin: 12px 0; }
+
+  .file-tree { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;
+               padding: 16px 20px; font-family: monospace; font-size: 13px; color: #374151;
+               line-height: 2; margin: 12px 0; }
+  .file-tree .folder { color: #1e3a5f; font-weight: 700; }
+  .file-tree .highlight { color: #c9a84c; font-weight: 700; }
+
+  .button-link { display: inline-block; background: #1e3a5f; color: #fff; padding: 10px 22px;
+                 border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 14px;
+                 margin-top: 8px; }
+
+  h3 { font-size: 15px; color: #1e3a5f; margin: 16px 0 8px; font-weight: 700; }
+  ul, ol { padding-left: 20px; color: #4b5563; font-size: 14px; }
+  li { margin-bottom: 6px; }
+  strong { color: #111827; }
+
+  .manager-box { background: #1e3a5f; color: #fff; border-radius: 10px; padding: 20px 24px; margin-top: 16px; }
+  .manager-box h3 { color: #c9a84c; margin-top: 0; }
+  .manager-box p { color: #93c5fd; font-size: 14px; }
+  .manager-box .code-inline { background: rgba(255,255,255,0.15); padding: 2px 10px; border-radius: 5px; font-family: monospace; font-size: 15px; color: #fff; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>EDP 2026 — Setup Guide <span class="gold">Windows</span></h1>
+  <p>Follow these steps to get the app running on your computer. No coding experience needed.</p>
+</div>
+
+<div class="container">
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <h2>Download & Install Node.js</h2>
+    </div>
+    <p>Node.js is a free tool that lets your computer run the app. You only install it once.</p>
+    <ol>
+      <li>Open your browser and go to <strong>https://nodejs.org</strong></li>
+      <li>Click the big green button labelled <strong>"LTS (Recommended)"</strong></li>
+      <li>Open the downloaded file (e.g. <code>node-v20.x.x-x64.msi</code>)</li>
+      <li>Click <strong>Next → Next → Install</strong> (keep all defaults)</li>
+      <li>When finished, click <strong>Finish</strong></li>
+    </ol>
+    <div class="tip">💡 <strong>How to check it worked:</strong> Press <strong>Windows key + R</strong>, type <code>cmd</code>, press Enter. In the black window type <code>node --version</code> and press Enter. You should see something like <code>v20.11.0</code></div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <h2>Extract the EDP App Folder</h2>
+    </div>
+    <p>You should have received a file called <strong>edp-app.zip</strong>.</p>
+    <ol>
+      <li>Find <strong>edp-app.zip</strong> in your Downloads folder</li>
+      <li>Right-click it → <strong>"Extract All…"</strong></li>
+      <li>Choose a location (e.g. your Desktop or Documents)</li>
+      <li>Click <strong>Extract</strong></li>
+    </ol>
+    <p>After extracting you should see a folder with this structure:</p>
+    <div class="file-tree">
+<span class="folder">📁 edp-app/</span>
+├── <span class="highlight">START-APP.bat</span>  ← double-click this to launch
+├── package.json
+├── <span class="folder">📁 public/</span>
+│   └── index.html
+└── <span class="folder">📁 src/</span>
+    ├── index.js
+    └── <span class="highlight">App.jsx</span>  ← the EDP form app
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <h2>Launch the App</h2>
+    </div>
+    <p>This is the only step you need to repeat every time you want to use the app.</p>
+    <ol>
+      <li>Open the <strong>edp-app</strong> folder</li>
+      <li><strong>Double-click</strong> the file called <strong class="gold">START-APP.bat</strong></li>
+      <li>A black command window will open — this is normal, don't close it</li>
+      <li>After ~30 seconds, your browser will automatically open at <strong>http://localhost:3000</strong></li>
+    </ol>
+    <div class="warn">⚠️ <strong>First launch only:</strong> The first time you run it, it will download packages (~2–3 minutes). After that it starts in under 10 seconds.</div>
+    <div class="tip">💡 <strong>To stop the app:</strong> Click the black command window and press <strong>Ctrl + C</strong>, then close it.</div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num done">4</div>
+      <h2>Using the App</h2>
+    </div>
+
+    <h3>👤 For Employees</h3>
+    <ul>
+      <li>Click <strong>"Register"</strong> the first time to create your account</li>
+      <li>Next time, enter your email under <strong>"Returning Employee"</strong></li>
+      <li>Fill in your EDP form, save drafts anytime</li>
+      <li>Click <strong>"Submit for Review"</strong> when ready</li>
+      <li>You'll get a notification when HR approves or returns it</li>
+      <li>If returned: read the manager's note, fix the form, resubmit</li>
+      <li>Once approved: download your form as a <strong>.docx</strong> to upload to SharePoint</li>
+    </ul>
+
+    <h3>🧑‍💼 For HR / Manager</h3>
+    <div class="manager-box">
+      <h3>Manager Access Code</h3>
+      <p>On the login screen, enter this code in the <strong>"HR / Manager"</strong> box:</p>
+      <p style="margin-top:10px;font-size:20px;"><span class="code-inline">manager2026</span></p>
+      <p style="margin-top:10px;">You'll see all employees, their status, and can approve or request corrections.</p>
+    </div>
+
+    <h3 style="margin-top:20px;">📊 Manager Dashboard Features</h3>
+    <ul>
+      <li>See all employees and their EDP status at a glance</li>
+      <li>Filter by: Pending Review / Approved / Needs Correction / Draft</li>
+      <li>Click <strong>"Review →"</strong> to read a submitted form</li>
+      <li>Click <strong>"✓ Approve"</strong> or <strong>"✕ Request Correction"</strong> (write your reason)</li>
+      <li>Download any form as <strong>.docx</strong> for SharePoint</li>
+    </ul>
+  </div>
+
+  <!-- STEP 5 — Sharing with other employees -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <h2>Sharing with Other Employees <span class="badge badge-blue">Optional</span></h2>
+    </div>
+    <p>Right now the app runs only on your computer. To let other employees access it from their own computers, you have two options:</p>
+
+    <h3>Option A — Share on your local network (free, quick)</h3>
+    <p>If everyone is on the same office Wi-Fi/network:</p>
+    <ol>
+      <li>Find your computer's IP address: press <strong>Win+R</strong>, type <code>cmd</code>, type <code>ipconfig</code></li>
+      <li>Look for <strong>IPv4 Address</strong> (e.g. <code>192.168.1.45</code>)</li>
+      <li>Other employees open their browser and go to <code>http://192.168.1.45:3000</code></li>
+    </ol>
+    <div class="warn">⚠️ Your computer must be on and the app must be running for this to work.</div>
+
+    <h3>Option B — Deploy online (free hosting)</h3>
+    <p>For permanent access from anywhere, the app can be deployed to <strong>Vercel</strong> or <strong>Netlify</strong> (both free). Ask your IT team or let us know and we'll guide you through it.</p>
+  </div>
+
+  <!-- TROUBLESHOOTING -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num" style="background:#c9a84c;">?</div>
+      <h2>Troubleshooting</h2>
+    </div>
+    <ul>
+      <li><strong>"node is not recognized"</strong> → Node.js wasn't installed correctly. Restart your computer and try Step 1 again.</li>
+      <li><strong>Browser doesn't open automatically</strong> → Manually open your browser and go to <code>http://localhost:3000</code></li>
+      <li><strong>"Something is already running on port 3000"</strong> → Type <code>Y</code> and press Enter when prompted.</li>
+      <li><strong>App is slow on first load</strong> → Normal! It compiles the first time. Subsequent loads are fast.</li>
+      <li><strong>Data is lost after closing</strong> → Data is stored in your browser's local storage. Don't clear browser data.</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

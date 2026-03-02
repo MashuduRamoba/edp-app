@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDP App — SharePoint Setup Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Lato', sans-serif; background: #f5f5f5; color: #111827; line-height: 1.6; }
+  .header { background: #4a4a4a; color: #fff; padding: 28px 40px; border-bottom: 4px solid #78be20; }
+  .header h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+  .header p { color: rgba(255,255,255,0.6); font-size: 14px; }
+  .green { color: #78be20; }
+  .container { max-width: 820px; margin: 36px auto; padding: 0 24px 60px; }
+  .card { background: #fff; border-radius: 12px; padding: 28px 32px; margin-bottom: 20px; border: 1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .num { width: 38px; height: 38px; border-radius: 50%; background: #4a4a4a; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; flex-shrink: 0; }
+  .num.green-bg { background: #78be20; }
+  h2 { font-size: 17px; font-weight: 800; color: #4a4a4a; }
+  p, li { color: #4b5563; font-size: 14px; margin-bottom: 10px; }
+  ol, ul { padding-left: 20px; }
+  li { margin-bottom: 7px; }
+  .code { background: #1e293b; color: #e2e8f0; padding: 14px 18px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 13px; margin: 10px 0; border-left: 4px solid #78be20; white-space: pre; overflow-x: auto; }
+  .tip  { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #15803d; margin: 12px 0; }
+  .warn { background: #fef9ec; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #92400e; margin: 12px 0; }
+  strong { color: #111827; }
+  h3 { font-size: 14px; font-weight: 700; color: #4a4a4a; margin: 16px 0 8px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+  .pill { display: inline-block; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; margin: 2px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1><span class="green">SharePoint</span> Setup Guide — EDP 2026</h1>
+  <p>For IT administrators · Microsoft 365 SharePoint · Estimated time: 10 minutes · Requires: Azure App already set up (GRAPH-SETUP-GUIDE.html)</p>
+</div>
+<div class="container">
+
+  <div class="card" style="background:#4a4a4a;color:#fff;border:none">
+    <h2 style="color:#78be20;margin-bottom:8px">What this does</h2>
+    <p style="color:rgba(255,255,255,0.8)">Once configured, all EDP data (employee forms, manager accounts, notifications) is stored in <strong style="color:#78be20">SharePoint Lists</strong> instead of the browser. This means:</p>
+    <ul style="color:rgba(255,255,255,0.7);margin-top:8px">
+      <li>Any employee on any computer can submit their form</li>
+      <li>Any manager on any computer can see all submissions instantly</li>
+      <li>Data is never lost if a browser is cleared or a computer replaced</li>
+      <li>HR can view and edit the raw data directly in SharePoint like an Excel table</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="step-header"><div class="num">1</div><h2>Add SharePoint permission to your Azure App</h2></div>
+    <p>You already set up an Azure App in <strong>GRAPH-SETUP-GUIDE.html</strong>. You just need to add one more permission.</p>
+    <ol>
+      <li>Go to <strong>portal.azure.com</strong> → <strong>Azure Active Directory</strong> → <strong>App registrations</strong></li>
+      <li>Click your <strong>EDP Portal Email</strong> app</li>
+      <li>Click <strong>API permissions</strong> → <strong>+ Add a permission</strong></li>
+      <li>Choose <strong>Microsoft Graph</strong> → <strong>Application permissions</strong></li>
+      <li>Search for <code>Sites.ReadWrite.All</code> and check it</li>
+      <li>Click <strong>Add permissions</strong></li>
+      <li>Click <strong>Grant admin consent for Landis+Gyr</strong> → <strong>Yes</strong></li>
+    </ol>
+    <div class="tip">✅ You should now have two permissions with green checkmarks: <strong>Mail.Send</strong> and <strong>Sites.ReadWrite.All</strong></div>
+  </div>
+
+  <div class="card">
+    <div class="step-header"><div class="num">2</div><h2>Find your SharePoint site URL and path</h2></div>
+    <p>You need two values from your SharePoint site:</p>
+    <div class="two-col">
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px">
+        <strong>siteUrl</strong> — the full URL<br>
+        <span style="font-family:monospace;font-size:13px;color:#1d4ed8">https://landis-gyr.sharepoint.com/sites/HR</span>
+      </div>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px">
+        <strong>sitePath</strong> — just the path part<br>
+        <span style="font-family:monospace;font-size:13px;color:#1d4ed8">/sites/HR</span>
+      </div>
+    </div>
+    <p style="margin-top:12px">To find these:</p>
+    <ol>
+      <li>Open your SharePoint site in the browser</li>
+      <li>Copy the URL from the address bar — e.g. <code>https://landis-gyr.sharepoint.com/sites/HR</code></li>
+      <li>The <strong>siteUrl</strong> is the full URL above</li>
+      <li>The <strong>sitePath</strong> is everything after <code>.com</code> — e.g. <code>/sites/HR</code></li>
+    </ol>
+    <div class="warn">⚠️ If your SharePoint URL looks like <code>https://landis-gyr.sharepoint.com/</code> (no path), use <code>/</code> as the sitePath.</div>
+  </div>
+
+  <div class="card">
+    <div class="step-header"><div class="num">3</div><h2>Add the values to App.jsx</h2></div>
+    <p>Open <strong>src/App.jsx</strong> in Notepad and find the <code>GRAPH_CONFIG</code> section near the top:</p>
+    <div class="code">const GRAPH_CONFIG = {
+  clientId:     "your-client-id",       // already filled in
+  tenantId:     "your-tenant-id",       // already filled in
+  clientSecret: "your-secret",          // already filled in
+  senderEmail:  "edp-noreply@landis-gyr.com",
+  // SharePoint config — ADD THESE TWO:
+  siteUrl:  "",    // ← paste your full SharePoint site URL here
+  sitePath: "",    // ← paste the path portion here
+};</div>
+    <p>After filling in, it should look like:</p>
+    <div class="code">const GRAPH_CONFIG = {
+  clientId:     "a1b2c3d4-...",
+  tenantId:     "f0e1d2c3-...",
+  clientSecret: "abc~defg...",
+  senderEmail:  "edp-noreply@landis-gyr.com",
+  siteUrl:  "https://landis-gyr.sharepoint.com/sites/HR",
+  sitePath: "/sites/HR",
+};</div>
+    <p>Save the file and restart the app (<strong>START-APP.bat</strong>).</p>
+  </div>
+
+  <div class="card">
+    <div class="step-header"><div class="num green-bg">4</div><h2>Verify it's working</h2></div>
+    <ol>
+      <li>Open the app and log in as a manager</li>
+      <li>Go to the <strong>🗄️ Database Admin</strong> tab</li>
+      <li>You should see a <strong style="color:#15803d">🟢 SharePoint Connected</strong> banner at the top</li>
+      <li>The first time the app loads, it will automatically create 3 lists in SharePoint:
+        <span class="pill">EDP_Employees</span>
+        <span class="pill">EDP_Managers</span>
+        <span class="pill">EDP_Notifications</span>
+      </li>
+      <li>Register a test employee — then open SharePoint and go to <strong>Site contents</strong> to confirm the <code>EDP_Employees</code> list was created with a row</li>
+    </ol>
+    <div class="tip">✅ Once connected, all saves, submits, approvals and rejections write to SharePoint automatically in the background.</div>
+  </div>
+
+  <div class="card">
+    <div class="step-header"><div class="num" style="background:#1d4ed8">i</div><h2>Viewing data directly in SharePoint</h2></div>
+    <p>Since data is now stored as SharePoint Lists, HR can view and edit it directly:</p>
+    <ol>
+      <li>Go to your SharePoint site → <strong>Site contents</strong></li>
+      <li>You'll see <strong>EDP_Employees</strong>, <strong>EDP_Managers</strong>, <strong>EDP_Notifications</strong></li>
+      <li>Click <strong>EDP_Employees</strong> to see a table of all employees, their status, job title, submission dates etc.</li>
+      <li>You can filter, sort, and export to Excel directly from SharePoint</li>
+    </ol>
+    <div class="warn">⚠️ The <code>formData</code> column contains the full form as JSON text. Don't edit it directly in SharePoint — always use the EDP app to make changes.</div>
+  </div>
+
+  <div class="card">
+    <div class="step-header"><div class="num" style="background:#6b7280">?</div><h2>Troubleshooting</h2></div>
+    <ul>
+      <li><strong>Still shows 🟡 Local storage</strong> → Check that both <code>siteUrl</code> and <code>sitePath</code> are filled in, and that <code>clientId</code>, <code>tenantId</code>, <code>clientSecret</code> are all set.</li>
+      <li><strong>"Access denied" errors in browser console (F12)</strong> → The <code>Sites.ReadWrite.All</code> permission was not granted admin consent. Repeat Step 1.</li>
+      <li><strong>Lists not created automatically</strong> → Check that the Azure app has <code>Sites.ReadWrite.All</code> permission. Then reload the app as a manager.</li>
+      <li><strong>Data shows in app but not in SharePoint</strong> → The site URL or path may be slightly wrong. Double-check Step 2.</li>
+      <li><strong>Existing localStorage data not migrating</strong> → After connecting SharePoint, use the <strong>🗄️ Database Admin → Export JSON</strong> to back up local data. The app does not auto-migrate existing localStorage data.</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
